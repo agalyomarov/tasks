@@ -80,7 +80,27 @@
                                     <td>{{ $project->title }}</td>
                                     <td>{{ $project->author == 'admin' ? 'admin' : $project->author->role . ' , ' . $project->author->fullname . ' ' . $project->author->lastname }}</td>
                                     <td>{{ $project->created_at }}</td>
-                                    <td>X</td>
+                                    <td>
+                                        @if ($project->status == 'taken')
+                                            <span class="badge badge-success">
+                                                Принято
+                                            </span>
+                                        @endif
+
+                                        @if ($project->status == 'offered')
+                                            <span class="badge badge-warning">
+                                                На рассмотрение
+                                            </span>
+                                        @endif
+
+                                        @if ($project->status == 'dismissed')
+                                            <span class="badge badge-danger">
+                                                Отклонено
+                                            </span>
+                                            <br>
+                                            ({{ $project->description }})
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tfoot>

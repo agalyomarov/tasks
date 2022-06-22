@@ -79,7 +79,27 @@
                                     <td>{{ $member->title }}</td>
                                     <td>{{ $member->author == 'admin' ? 'admin' : $member->author->role . ' , ' . $member->author->fullname . ' ' . $member->author->lastname }}</td>
                                     <td>{{ $member->created_at }}</td>
-                                    <td>X</td>
+                                    <td>
+                                        @if ($member->status == 'taken')
+                                            <span class="badge badge-success">
+                                                Принято
+                                            </span>
+                                        @endif
+
+                                        @if ($member->status == 'offered')
+                                            <span class="badge badge-warning">
+                                                На рассмотрение
+                                            </span>
+                                        @endif
+
+                                        @if ($member->status == 'dismissed')
+                                            <span class="badge badge-danger">
+                                                Отклонено
+                                            </span>
+                                            <br>
+                                            ({{ $member->description }})
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                     </table>

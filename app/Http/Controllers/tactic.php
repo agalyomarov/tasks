@@ -22,7 +22,7 @@ class tactic extends Controller
             $personal = new stdClass();
             $personal->id = 'admin';
         }
-        $tactics = DB::table('goals')->where('author_id', $personal->id)->get();
+        $tactics = DB::table('tasks')->where('author_id', $personal->id)->get();
         foreach ($tactics as $tactic) {
             $tactic->created_at = Carbon::parse($tactic->created_at)->format('d.m.Y');
             if ($tactic->author_id != 'admin') {

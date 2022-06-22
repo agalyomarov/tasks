@@ -97,7 +97,27 @@
                                             <td>{{ $strategy->title }}</td>
                                             <td>{{ $strategy->author == 'admin' ? 'admin' : $strategy->author->role . ' , ' . $strategy->author->fullname . ' ' . $strategy->author->lastname }}</td>
                                             <td>{{ $strategy->created_at }}</td>
-                                            <td>X</td>
+                                            <td>
+                                                @if ($strategy->status == 'taken')
+                                                    <span class="badge badge-success">
+                                                        Принято
+                                                    </span>
+                                                @endif
+
+                                                @if ($strategy->status == 'offered')
+                                                    <span class="badge badge-warning">
+                                                        На рассмотрение
+                                                    </span>
+                                                @endif
+
+                                                @if ($strategy->status == 'dismissed')
+                                                    <span class="badge badge-danger">
+                                                        Отклонено
+                                                    </span>
+                                                    <br>
+                                                    ({{ $strategy->description }})
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

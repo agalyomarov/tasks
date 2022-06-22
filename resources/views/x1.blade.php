@@ -80,7 +80,27 @@
                                     <td>{{ $category->title }}</td>
                                     <td>{{ $category->author == 'admin' ? 'admin' : $category->author->role . ' , ' . $category->author->fullname . ' ' . $category->author->lastname }}</td>
                                     <td>{{ $category->created_at }}</td>
-                                    <td>X</td>
+                                    <td>
+                                        @if ($category->status == 'taken')
+                                            <span class="badge badge-success">
+                                                Принято
+                                            </span>
+                                        @endif
+
+                                        @if ($category->status == 'offered')
+                                            <span class="badge badge-warning">
+                                                На рассмотрение
+                                            </span>
+                                        @endif
+
+                                        @if ($category->status == 'dismissed')
+                                            <span class="badge badge-danger">
+                                                Отклонено
+                                            </span>
+                                            <br>
+                                            ({{ $category->description }})
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
 

@@ -80,7 +80,27 @@
                                     <td>{{ $tactic->title }}</td>
                                     <td>{{ $tactic->author == 'admin' ? 'admin' : $tactic->author->role . ' , ' . $tactic->author->fullname . ' ' . $tactic->author->lastname }}</td>
                                     <td>{{ $tactic->created_at }}</td>
-                                    <td>X</td>
+                                    <td>
+                                        @if ($tactic->status == 'taken')
+                                            <span class="badge badge-success">
+                                                Принято
+                                            </span>
+                                        @endif
+
+                                        @if ($tactic->status == 'offered')
+                                            <span class="badge badge-warning">
+                                                На рассмотрение
+                                            </span>
+                                        @endif
+
+                                        @if ($tactic->status == 'dismissed')
+                                            <span class="badge badge-danger">
+                                                Отклонено
+                                            </span>
+                                            <br>
+                                            ({{ $tactic->description }})
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tfoot>
