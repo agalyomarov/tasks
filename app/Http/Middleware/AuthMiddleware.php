@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdminMiddleware
+class AuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,9 +20,9 @@ class AdminMiddleware
         // dd(session('login'));
         $personal = DB::table('personals')->where(['login' => session('login'), 'password' => session('password')])->first();
         if ($personal) {
-            if ($personal->role == 'admin') {
-                return $next($request);
-            }
+            // if ($personal->role == 'director') {
+            return $next($request);
+            // }
         } else if (config('app.ADMIN_LOGIN') == session('login') && config('app.ADMIN_PASSWORD') == session('password')) {
             return $next($request);
         }

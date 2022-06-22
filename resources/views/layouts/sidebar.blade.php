@@ -14,7 +14,7 @@
                  <img src="{{ asset('backend/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
              </div>
              <div class="info">
-                 <a href="#" class="d-block">Илья Даниленок</a>
+                 <a href="#" class="d-block">{!! App\Http\Controllers\MainController::getAuthor() !!}</a>
              </div>
          </div>
 
@@ -62,116 +62,113 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
+
                      <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="/category" class="nav-link">
-                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 <p>
-                                     + Цели
-                                     <span class="badge badge-info right">7</span>
-                                 </p>
-                             </a>
-                         </li>
+                         @if (session()->get('role') == 'admin' || session()->get('role') == 'director' || session()->get('role') == 'manager_goals')
+                             <li class="nav-item">
+                                 <a href="/category" class="nav-link">
+                                     <i class="nav-icon fas fa-chart-pie"></i>
+                                     <p>
+                                         + Цели
+                                         <span class="badge badge-info right">7</span>
+                                     </p>
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="/category/create" class="nav-link">
+                                     <i class="nav-icon "></i>
+                                     <p>
+                                         Создать цель
+                                         <span class="badge badge-info right"></span>
+                                     </p>
+                                 </a>
+                             </li>
+                         @endif
+                         @if (session()->get('role') == 'admin' || session()->get('role') == 'director' || session()->get('role') == 'manager_tactic')
+                             <li class="nav-item">
+                                 <a href="{{ route('tacticIndex') }}" class="nav-link">
+                                     <i class="nav-icon fas fa-chart-pie"></i>
+                                     <p>
+                                         Задачи
+                                         <span class="badge badge-info right">8</span>
+                                     </p>
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('tacticCreate') }}" class="nav-link">
+                                     <i class="nav-icon "></i>
+                                     <p>
+                                         Создат задачу
+                                         <span class="badge badge-info right"></span>
+                                     </p>
+                                 </a>
+                             </li>
+                         @endif
+                         @if (session()->get('role') == 'admin' || session()->get('role') == 'director' || session()->get('role') == 'manager_projects')
+                             <li class="nav-item">
+                                 <a href="{{ route('projectIndex') }}" class="nav-link">
+                                     <i class="nav-icon fas fa-chart-pie"></i>
+                                     <p>
+                                         + Проект
+                                         <span class="badge badge-info right">25</span>
+                                     </p>
+                                 </a>
+                             </li>
 
-                         <li class="nav-item">
-                             <a href="/category/create" class="nav-link">
-                                 <i class="nav-icon "></i>
-                                 <p>
-                                     Создать цель
-                                     <span class="badge badge-info right"></span>
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('tacticIndex') }}" class="nav-link">
-                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 <p>
-                                     Задачи
-                                     <span class="badge badge-info right">8</span>
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('tacticCreate') }}" class="nav-link">
-                                 <i class="nav-icon "></i>
-                                 <p>
-                                     Создат задачу
-                                     <span class="badge badge-info right"></span>
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('projectIndex') }}" class="nav-link">
-                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 <p>
-                                     + Проект
-                                     <span class="badge badge-info right">25</span>
-                                 </p>
-                             </a>
-                         </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('projectCreate') }}" class="nav-link">
+                                     <i class="nav-icon "></i>
+                                     <p>
+                                         Создать проект
+                                         <span class="badge badge-info right"></span>
+                                     </p>
+                                 </a>
+                             </li>
+                         @endif
+                         @if (session()->get('role') == 'admin' || session()->get('role') == 'director' || session()->get('role') == 'manager_members')
+                             <li class="nav-item">
+                                 <a href="{{ route('memberIndex') }}" class="nav-link">
+                                     <i class="nav-icon fas fa-chart-pie"></i>
+                                     <p>
+                                         + Человек
+                                         <span class="badge badge-info right">6</span>
+                                     </p>
+                                 </a>
+                             </li>
 
-                         <li class="nav-item">
-                             <a href="{{ route('projectCreate') }}" class="nav-link">
-                                 <i class="nav-icon "></i>
-                                 <p>
-                                     Создать проект
-                                     <span class="badge badge-info right"></span>
-                                 </p>
-                             </a>
-                         </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('memberCreate') }}" class="nav-link">
+                                     <i class="nav-icon "></i>
+                                     <p>
+                                         Добавить человек
+                                         <span class="badge badge-info right"></span>
+                                     </p>
+                                 </a>
+                             </li>
+                         @endif
+                         @if (session()->get('role') == 'admin' || session()->get('role') == 'director')
+                             <li class="nav-item">
+                                 <a href="/strategy" class="nav-link">
+                                     <i class="nav-icon fas fa-chart-pie"></i>
+                                     <p>
+                                         + Результат
+                                         <span class="badge badge-info right">6</span>
+                                     </p>
+                                 </a>
+                             </li>
 
-                         <li class="nav-item">
-                             <a href="{{ route('memberIndex') }}" class="nav-link">
-                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 <p>
-                                     + Человек
-                                     <span class="badge badge-info right">6</span>
-                                 </p>
-                             </a>
-                         </li>
-
-                         <li class="nav-item">
-                             <a href="{{ route('memberCreate') }}" class="nav-link">
-                                 <i class="nav-icon "></i>
-                                 <p>
-                                     Добавить человек
-                                     <span class="badge badge-info right"></span>
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="/strategy" class="nav-link">
-                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 <p>
-                                     + Результат
-                                     <span class="badge badge-info right">6</span>
-                                 </p>
-                             </a>
-                         </li>
-
-                         <li class="nav-item">
-                             <a href="/strategy/create" class="nav-link">
-                                 <i class="nav-icon "></i>
-                                 <p>
-                                     Создат результат
-                                     <span class="badge badge-info right"></span>
-                                 </p>
-                             </a>
-                         </li>
-
-                         <li class="nav-item">
-                             <a href="{{ route('x5.index') }}" class="nav-link">
-                                 <i class="nav-icon far fa-plus-square"></i>
-                                 <p>
-                                     Сотрудники
-                                     <span class="badge badge-info right">4</span>
-                                 </p>
-                             </a>
-                         </li>
+                             <li class="nav-item">
+                                 <a href="/strategy/create" class="nav-link">
+                                     <i class="nav-icon "></i>
+                                     <p>
+                                         Создат результат
+                                         <span class="badge badge-info right"></span>
+                                     </p>
+                                 </a>
+                             </li>
+                         @endif
                      </ul>
                  </li>
-
-
                  <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -182,7 +179,7 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="{{ route('viewpanel.index') }}" class="nav-link">
+                             <a href="{{ route('viewpanelIndex') }}" class="nav-link">
                                  <i class="nav-icon fas fa-chart-pie"></i>
                                  <p>
                                      Обзорная панель
@@ -208,15 +205,26 @@
                                  </p>
                              </a>
                          </li>
-
-
-
-
-
-
-
-
-
+                     </ul>
+                     @if (session()->get('role') == 'admin' || session()->get('role') == 'director')
+                 <li class="nav-item">
+                     <a href="{{ route('personalIndex') }}" class="nav-link">
+                         <i class="nav-icon fas fa-tachometer-alt"></i>
+                         <p>
+                             Сотрудники
+                         </p>
+                     </a>
+                 </li>
+                 @endif
+                 <li class="nav-item">
+                     <a href="{{ route('auth.logout') }}" class="nav-link">
+                         <i class="nav-icon fas fa-tachometer-alt"></i>
+                         <p>
+                             Выйти
+                         </p>
+                     </a>
+                 </li>
+             </ul>
          </nav>
          <!-- /.sidebar-menu -->
      </div>

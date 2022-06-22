@@ -71,17 +71,15 @@
                                 <th>Цель</th>
                                 <th>Автор</th>
                                 <th>Дата</th>
-                                <th>Описание</th>
                                 <th>Статус</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($categories as $category)
                                 <tr>
-                                    <td>Цель №{{ $category->id }}</td>
-                                    <td>{{ $category->author == 'admin' ? 'admin' : $category->author->fullname . ' ' . $category->author->lastname }}</td>
-                                    <td>{{ $category->created_at }}</td>
                                     <td>{{ $category->title }}</td>
+                                    <td>{{ $category->author == 'admin' ? 'admin' : $category->author->role . ' , ' . $category->author->fullname . ' ' . $category->author->lastname }}</td>
+                                    <td>{{ $category->created_at }}</td>
                                     <td>X</td>
                                 </tr>
                             @endforeach

@@ -71,17 +71,15 @@
                                 <th>Мероприятие</th>
                                 <th>Автор</th>
                                 <th>Дата</th>
-                                <th>Описание</th>
                                 <th>Статус</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($projects as $project)
                                 <tr>
-                                    <td>Мероприятие №{{ $project->id }}</td>
-                                    <td>{{ $project->author == 'admin' ? 'admin' : $project->author->fullname . ' ' . $project->author->lastname }}</td>
-                                    <td>{{ $project->created_at }}</td>
                                     <td>{{ $project->title }}</td>
+                                    <td>{{ $project->author == 'admin' ? 'admin' : $project->author->role . ' , ' . $project->author->fullname . ' ' . $project->author->lastname }}</td>
+                                    <td>{{ $project->created_at }}</td>
                                     <td>X</td>
                                 </tr>
                             @endforeach

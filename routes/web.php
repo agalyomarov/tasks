@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'default'])->name('main')->middleware('admin');
+Route::get('/', [MainController::class, 'default'])->name('main')->middleware('authmiddleware');
+Route::get('/getAuthor', [MainController::class, 'getAuthor'])->name('getAuthor');
 
 Route::get('/auth', [LoginController::class, 'index'])->name('auth');
 Route::post('/auth', [LoginController::class, 'store'])->name('auth.store');
+Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
 
 // Auth::routes();
@@ -44,10 +46,19 @@ Route::get('/strategy', [App\Http\Controllers\strategy::class, 'index'])->name('
 Route::get('/strategy/create', [App\Http\Controllers\strategy::class, 'create'])->name('strategyCreate');
 Route::post('/strategy/store', [App\Http\Controllers\strategy::class, 'store'])->name('strategyStore');
 
+Route::get('/personal', [App\Http\Controllers\PersonalController::class, 'index'])->name('personalIndex');
+Route::post('/personal', [App\Http\Controllers\PersonalController::class, 'store'])->name('personalStore');
+Route::delete('/personal/{personal}', [App\Http\Controllers\PersonalController::class, 'delete'])->name('personalDelete');
+
+Route::get('/viewpanel', [App\Http\Controllers\MainViewPanelController::class, 'index'])->name('viewpanelIndex');
+Route::post('/viewpanel/take', [App\Http\Controllers\MainViewPanelController::class, 'take'])->name('viewpanelTake');
+Route::post('/viewpanel/offer', [App\Http\Controllers\MainViewPanelController::class, 'offer'])->name('viewpanelOffer');
+// Route::delete('/personal/{personal}', [App\Http\Controllers\PersonalController::class, 'delete'])->name('personalDelete');
+
 Route::resource('category', 'App\Http\Controllers\categorycontroller');
 Route::resource('PhotoController', 'App\Http\Controllers\PhotoController');
 Route::resource('MailController', 'App\Http\Controllers\MailController');
-Route::resource('viewpanel', 'App\Http\Controllers\viewpanel');
+// Route::resource('viewpanel', 'App\Http\Controllers\viewpanel');
 // Route::resource('tactic', 'App\Http\Controllers\tactic');
 // Route::resource('strategy', 'App\Http\Controllers\strategy');
 Route::resource('meropriyatia', 'App\Http\Controllers\meropriyatia');

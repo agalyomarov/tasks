@@ -71,17 +71,15 @@
                                 <th>Тактика</th>
                                 <th>Автор</th>
                                 <th>Дата</th>
-                                <th>Описание</th>
                                 <th>Статус</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tactics as $tactic)
                                 <tr>
-                                    <td>Тактика №{{ $tactic->id }}</td>
-                                    <td>{{ $tactic->author == 'admin' ? 'admin' : $tactic->author->fullname . ' ' . $tactic->author->lastname }}</td>
-                                    <td>{{ $tactic->created_at }}</td>
                                     <td>{{ $tactic->title }}</td>
+                                    <td>{{ $tactic->author == 'admin' ? 'admin' : $tactic->author->role . ' , ' . $tactic->author->fullname . ' ' . $tactic->author->lastname }}</td>
+                                    <td>{{ $tactic->created_at }}</td>
                                     <td>X</td>
                                 </tr>
                             @endforeach

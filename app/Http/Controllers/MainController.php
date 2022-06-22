@@ -138,7 +138,7 @@ class MainController extends Controller
     {
         // делать запрос
         // $title_collection = DB::table($table_name)->select('id','title')->get();
-        $title_collection = DB::table($table_name)->select('id', 'title')->get();
+        $title_collection = DB::table($table_name)->where('status', 'taken')->select('id', 'title')->get();
 
         $text_table = collect([['id' => '1', 'title' => 'Первый'], ['id' => '2', 'title' => 'Второй']]);
         $text_table2 = collect([]);
@@ -297,8 +297,8 @@ class MainController extends Controller
     // Акутализация и получение данных для матрицы
     function getAndActualizeRelations($table_name_1, $table_name_2, $corresnoding_table_name, $string_name, $column_name)
     {
-        $table_1 = DB::table($table_name_1)->select('id')->get();
-        $table_2 = DB::table($table_name_2)->select('id')->get();
+        $table_1 = DB::table($table_name_1)->where('status', 'taken')->select('id')->get();
+        $table_2 = DB::table($table_name_2)->where('status', 'taken')->select('id')->get();
         $hm = $relations = DB::table($corresnoding_table_name)->select($string_name, $column_name, 'value')->get();
 
         $unique_strings = $hm1 = $relations->unique($string_name)->pluck($string_name)->all();
@@ -435,11 +435,16 @@ class MainController extends Controller
         if (($top_height + 2) < $result5['end_string']) {
             $matrix[$result['end_string'] + 2][$result5['end_column'] + 1] = '<td class="white" rowspan="' . ($result5['end_string'] - $result['end_string']) . '" colspan="' . ($matrix_text_4['end_column'] - $result2['end_column']) . '"></td>';
         }
-
-
-
-
-
         return view('main', ['rt_1' => $result, 'rt_2' => $result2, 'rt_3' => $result3, 'rt_4' => $result4, 'rt_5' => $result5, 'matrix' => $matrix, 'mt1' => $matrix_text_1, 'test' => $result]);
+    }
+
+    public static function getAuthor()
+    {
+        if (session()->get('role') == 'admin') {
+            return 'admin';
+        } else {
+            $personal = DB::table('personals')->where('login', session()->get('login'))->first();
+            return $personal->fullname . '  ' . $personal->lastname . '<br>' . $personal->role;
+        }
     }
 }

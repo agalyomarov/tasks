@@ -85,20 +85,18 @@
                             <table class="table table-hover text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th>№</th>
+                                        <th>Стратегия</th>
                                         <th>Автор</th>
                                         <th>Дата</th>
-                                        <th>Описание</th>
                                         <th>Статуc</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($strategies as $strategy)
                                         <tr>
-                                            <td>№{{ $strategy->id }}</td>
-                                            <td>{{ $strategy->author == 'admin' ? 'admin' : $strategy->author->fullname . ' ' . $strategy->author->lastname }}</td>
-                                            <td>{{ $strategy->created_at }}</td>
                                             <td>{{ $strategy->title }}</td>
+                                            <td>{{ $strategy->author == 'admin' ? 'admin' : $strategy->author->role . ' , ' . $strategy->author->fullname . ' ' . $strategy->author->lastname }}</td>
+                                            <td>{{ $strategy->created_at }}</td>
                                             <td>X</td>
                                         </tr>
                                     @endforeach

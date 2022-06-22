@@ -17,7 +17,11 @@ class categorycontroller extends Controller
      */
     public function index()
     {
-        $categories = DB::table('goals')->get();
+        $personal = DB::table('personals')->where(['login' => session()->get('login'), 'password' => session()->get('password')])->first();
+        // if (!$personal) {
+        //     $personal->id = null;
+        // }
+        $categories = DB::table('goals')->where('author_id', $personal->id)->get();
         foreach ($categories as $category) {
             $category->created_at = Carbon::parse($category->created_at)->format('d.m.Y');
             if ($category->author_id != 'admin') {
@@ -50,8 +54,8 @@ class categorycontroller extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $personal = DB::table('personals')->where(['login' => session()->get('login')])->first();
-        $author = '';
+        $personal = DB::table('personals')->where('login', session()->get('login'))->first();
+        $author_id = '';
         if ($personal) {
             $author_id = $personal->id;
         } else if (config('app.ADMIN_LOGIN') == session()->get('login')) {

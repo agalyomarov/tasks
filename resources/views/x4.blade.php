@@ -67,20 +67,18 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>№</th>
+                                <th>Имя</th>
                                 <th>Автор</th>
                                 <th>Дата</th>
-                                <th>Имя</th>
                                 <th>Статус</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($members as $member)
                                 <tr>
-                                    <td>№{{ $member->id }}</td>
-                                    <td>{{ $member->author == 'admin' ? 'admin' : $member->author->fullname . ' ' . $member->author->lastname }}</td>
-                                    <td>{{ $member->created_at }}</td>
                                     <td>{{ $member->title }}</td>
+                                    <td>{{ $member->author == 'admin' ? 'admin' : $member->author->role . ' , ' . $member->author->fullname . ' ' . $member->author->lastname }}</td>
+                                    <td>{{ $member->created_at }}</td>
                                     <td>X</td>
                                 </tr>
                             @endforeach

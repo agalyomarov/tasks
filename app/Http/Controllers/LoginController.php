@@ -21,15 +21,23 @@ class LoginController extends Controller
             session(['login' => $personal->login]);
             session(['password' => $personal->password]);
             session(['role' => $personal->role]);
-            if ($personal->role == 'admin') {
-                return  redirect()->route('main');
-            }
+            // if ($personal->role == 'director') {
+            return  redirect()->route('main');
+            // }
         } else if (config('app.ADMIN_LOGIN') == $data['login'] && config('app.ADMIN_PASSWORD') == $data['password']) {
             session(['login' => config('app.ADMIN_LOGIN')]);
             session(['password' => config('app.ADMIN_PASSWORD')]);
             session(['role' => 'admin']);
             return  redirect()->route('main');
         }
+        return redirect()->route('auth');
+    }
+
+    public function logout()
+    {
+        session()->forget('role');
+        session()->forget('login');
+        session()->forget('password');
         return redirect()->route('auth');
     }
 }

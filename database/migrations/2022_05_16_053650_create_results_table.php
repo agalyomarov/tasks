@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('status');
             $table->string('author_id');
+            $table->string('description')->nullable();
+            $table->string('name')->default('results');
             $table->timestamps();
         });
     }
