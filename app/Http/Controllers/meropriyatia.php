@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class meropriyatia extends Controller
 {
@@ -16,7 +17,12 @@ class meropriyatia extends Controller
      */
     public function index()
     {
-        $projects = DB::table('projects')->get();
+        $personal = DB::table('personals')->where(['login' => session()->get('login'), 'password' => session()->get('password')])->first();
+        if (!$personal) {
+            $personal = new stdClass();
+            $personal->id = 'admin';
+        }
+        $projects = DB::table('projects')->where('author_id', $personal->id)->get();
         foreach ($projects as $project) {
             $project->created_at = Carbon::parse($project->created_at)->format('d.m.Y');
             if ($project->author_id != 'admin') {

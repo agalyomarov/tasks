@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class categorycontroller extends Controller
 {
@@ -18,9 +19,10 @@ class categorycontroller extends Controller
     public function index()
     {
         $personal = DB::table('personals')->where(['login' => session()->get('login'), 'password' => session()->get('password')])->first();
-        // if (!$personal) {
-        //     $personal->id = null;
-        // }
+        if (!$personal) {
+            $personal = new stdClass();
+            $personal->id = 'admin';
+        }
         $categories = DB::table('goals')->where('author_id', $personal->id)->get();
         foreach ($categories as $category) {
             $category->created_at = Carbon::parse($category->created_at)->format('d.m.Y');

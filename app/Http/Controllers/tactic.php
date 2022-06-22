@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class tactic extends Controller
 {
@@ -16,7 +17,12 @@ class tactic extends Controller
      */
     public function index()
     {
-        $tactics = DB::table('goals')->get();
+        $personal = DB::table('personals')->where(['login' => session()->get('login'), 'password' => session()->get('password')])->first();
+        if (!$personal) {
+            $personal = new stdClass();
+            $personal->id = 'admin';
+        }
+        $tactics = DB::table('goals')->where('author_id', $personal->id)->get();
         foreach ($tactics as $tactic) {
             $tactic->created_at = Carbon::parse($tactic->created_at)->format('d.m.Y');
             if ($tactic->author_id != 'admin') {
